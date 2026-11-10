@@ -1,0 +1,55 @@
+{
+  "name": "looper-mcp",
+  "version": "0.1.0",
+  "description": "Show it once, it becomes a tool: record a task in any web app and get an MCP tool that calls its hidden API.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "looper": "bin/looper.mjs"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "server/env.mjs",
+    "server/llm.mjs",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicoogg/looper.git"
+  },
+  "homepage": "https://github.com/nicoogg/looper#readme",
+  "bugs": "https://github.com/nicoogg/looper/issues",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agents",
+    "automation",
+    "playwright",
+    "reverse-engineering",
+    "api",
+    "claude"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server/index.mjs",
+    "test": "node test/e2e.test.mjs",
+    "demo": "node examples/demo-supplier/server.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "playwright": "^1.65.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "vite": "^5.4.10",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
