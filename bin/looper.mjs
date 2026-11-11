@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // looper: show it once, it becomes a tool.
 import { mkdir, readFile, writeFile, access } from 'node:fs/promises'
-import { dirname, join, relative } from 'node:path'
+import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createInterface } from 'node:readline/promises'
 import { loadEnvFile } from '../server/env.mjs'
@@ -153,8 +153,14 @@ try {
     const { serve } = await import('../lib/mcp.mjs')
     await serve(dir, VERSION)
   } else if (cmd === 'mcp-config') {
-    const bin = join(ROOT, 'bin', 'looper.mjs')
-    console.log(`claude mcp add looper -- node ${JSON.stringify(bin)} serve --dir ${JSON.stringify(paths(dir).root)}`)
+    // npx keeps packages in a cache that can be wiped: never print that path.
+    const where = ROOT.split(sep).join('/')
+    const run = where.includes('/_npx/')
+      ? 'npx -y looper-mcp'
+      : where.includes('/node_modules/')
+        ? 'looper'
+        : `node ${JSON.stringify(join(ROOT, 'bin', 'looper.mjs'))}`
+    console.log(`claude mcp add looper -- ${run} serve --dir ${JSON.stringify(paths(dir).root)}`)
   } else throw new Error(`Unknown command "${cmd}".\n\n${HELP}`)
 } catch (err) {
   console.error(c.red('✗ ') + err.message)
